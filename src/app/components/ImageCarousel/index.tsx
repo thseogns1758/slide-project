@@ -42,7 +42,7 @@ const ImageCarousel = ({
   const startX = React.useRef(0);
   const dragOffset = React.useRef(0);
   const isDragging = React.useRef(false);
-  const totalItemLength = Math.floor((itemLength - 1) / view);
+  const totalItemLength = Math.ceil(itemLength / view) - 1;
 
   const handleNext = () => {
     if (isInfinity && currentIndex === totalItemLength)
@@ -180,7 +180,7 @@ const ImageCarousel = ({
           className="absolute left-1/2 transform -translate-x-1/2 flex gap-1"
           style={{ bottom: pageIndicatorBottom }}
         >
-          {Array(itemLength)
+          {Array(totalItemLength + 1)
             .fill(0)
             .map((i, index) => (
               <FaCircle
