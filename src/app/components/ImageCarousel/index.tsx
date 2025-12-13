@@ -137,34 +137,36 @@ const ImageCarousel = ({
         height: height,
       }}
     >
-      <Box
-        className="absolute w-full flex items-center justify-between z-10 pointer-events-none"
-        style={{
-          top: buttonPosition,
-          transform: "translateY(-50%)",
-        }}
-        ref={buttonRef}
-      >
-        <Button onClick={handlePrev} className="pointer-events-auto">
-          {customButton ? (
-            customButton
-          ) : (
-            <IoIosArrowForward
-              size={buttonSize}
-              color="white"
-              style={{ transform: "rotate(180deg)" }}
-            />
-          )}
-        </Button>
+      {totalItemLength > 0 && (
+        <Box
+          className="absolute w-full flex items-center justify-between z-10 pointer-events-none"
+          style={{
+            top: buttonPosition,
+            transform: "translateY(-50%)",
+          }}
+          ref={buttonRef}
+        >
+          <Button onClick={handlePrev} className="pointer-events-auto">
+            {customButton ? (
+              customButton
+            ) : (
+              <IoIosArrowForward
+                size={buttonSize}
+                color="white"
+                style={{ transform: "rotate(180deg)" }}
+              />
+            )}
+          </Button>
 
-        <Button onClick={handleNext} className="pointer-events-auto">
-          {customButton ? (
-            customButton
-          ) : (
-            <IoIosArrowForward size={buttonSize} color="white" />
-          )}
-        </Button>
-      </Box>
+          <Button onClick={handleNext} className="pointer-events-auto">
+            {customButton ? (
+              customButton
+            ) : (
+              <IoIosArrowForward size={buttonSize} color="white" />
+            )}
+          </Button>
+        </Box>
+      )}
 
       <Box
         ref={carouselRef}
@@ -175,7 +177,7 @@ const ImageCarousel = ({
       >
         {children}
       </Box>
-      {isPageIndicator && (
+      {isPageIndicator && totalItemLength > 0 && (
         <Box
           className="absolute left-1/2 transform -translate-x-1/2 flex gap-1"
           style={{ bottom: pageIndicatorBottom }}

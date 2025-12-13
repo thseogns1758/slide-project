@@ -91,15 +91,6 @@ export default function Home() {
             <p>이미지를 불러오는중 예상치못한 에러가 발생했습니다.</p>
           ) : (
             <Box className="relative">
-              <Box className="w-full flex justify-center ">
-                <Button onClick={playHandler}>
-                  {isAutoPlay ? (
-                    <CiPause1 size={40} color="white" />
-                  ) : (
-                    <CiPlay1 size={40} color="white" />
-                  )}
-                </Button>
-              </Box>
               <ImageCarousel
                 width={imageWidth}
                 height={imageHeight}
@@ -108,7 +99,7 @@ export default function Home() {
                 autoPlay={isAutoPlay}
                 isInfinity
                 isPageIndicator
-                pageIndicatorBottom={"0px"}
+                pageIndicatorBottom={"20px"}
               >
                 {data.map((image: ImageType) => (
                   <ImageCarouselItem
@@ -141,6 +132,15 @@ export default function Home() {
                   </ImageCarouselItem>
                 ))}
               </ImageCarousel>
+              <Box className="absolute bottom-[10px] left-1/2 ml-15 transform -translate-x-1/2">
+                <Button onClick={playHandler}>
+                  {isAutoPlay ? (
+                    <CiPause1 size={20} color="white" />
+                  ) : (
+                    <CiPlay1 size={20} color="white" />
+                  )}
+                </Button>
+              </Box>
             </Box>
           )}
         </Box>
