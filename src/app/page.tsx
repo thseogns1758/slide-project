@@ -1,7 +1,15 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
+import { Box, Button, Skeleton } from "@mui/material";
+import { useCarouselImage } from "@/app/api/image/carouselimage";
+import ImageCarousel from "@/app/components/ImageCarousel";
+import ImageCarouselItem from "@/app/components/ImageCarouselItem";
+import { ImageType } from "./types/api/images";
 
+import { CiPause1 } from "react-icons/ci";
+import { CiPlay1 } from "react-icons/ci";
 const ASSIGNMENT_CONFIG = {
   title: "Image Carousel",
   subtitle: "Telepix Cosmo Pioneers Fellowship",
@@ -61,11 +69,81 @@ function BackgroundPattern() {
 }
 
 export default function Home() {
+  const { data, isLoading, error } = useCarouselImage();
+  const imageWidth = 800;
+  const imageHeight = 400;
+  const view = 2;
+  const [isAutoPlay, setIsAutoPlay] = React.useState(true);
+  const [isImageLoading, setIsImageLoading] = React.useState(false);
+  const [isImageError, setIsImageError] = React.useState(false);
+  const playHandler = () => {
+    setIsAutoPlay(!isAutoPlay);
+  };
   return (
     <div className="relative w-full h-screen">
       <BackgroundPattern />
       <main className="relative flex flex-col items-center justify-center w-full h-full">
         <Header />
+        <Box>
+          {isLoading ? (
+            <p>이미지를 불러오고 있습니다.</p>
+          ) : error ? (
+            <p>이미지를 불러오는중 예상치못한 에러가 발생했습니다.</p>
+          ) : (
+            <Box className="relative">
+              <Box className="w-full flex justify-center ">
+                <Button onClick={playHandler}>
+                  {isAutoPlay ? (
+                    <CiPause1 size={40} color="white" />
+                  ) : (
+                    <CiPlay1 size={40} color="white" />
+                  )}
+                </Button>
+              </Box>
+              <ImageCarousel
+                width={imageWidth}
+                height={imageHeight}
+                itemLength={data.length}
+                view={view}
+                autoPlay={isAutoPlay}
+                isInfinity
+                isPageIndicator
+                pageIndicatorBottom={"0px"}
+              >
+                {data.map((image: ImageType) => (
+                  <ImageCarouselItem
+                    key={image.id}
+                    width={imageWidth}
+                    view={view}
+                    contentStyle={{ padding: 12 }}
+                  >
+                    {isImageLoading && (
+                      <Box className="absolute top-0 left-0 w-full h-full">
+                        <Skeleton
+                          variant="rectangular"
+                          width={imageWidth}
+                          height={imageHeight}
+                        />
+                      </Box>
+                    )}
+                    {!isImageError && (
+                      <Image
+                        src={image.url}
+                        alt={image.author}
+                        width={imageWidth}
+                        height={imageHeight}
+                        objectFit="cover"
+                        loading="lazy"
+                        onLoad={() => setIsImageLoading(false)}
+                        onError={() => setIsImageError(true)}
+                      />
+                    )}
+                  </ImageCarouselItem>
+                ))}
+              </ImageCarousel>
+            </Box>
+          )}
+        </Box>
       </main>
     </div>
   );
