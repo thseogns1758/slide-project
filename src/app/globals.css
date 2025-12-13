@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+:root {
+  --background: #faf9f7;
+  --foreground: #1c1917;
+
+  /* Telepix Red Palette */
+  --telepix-100: #fce8eb;
+  --telepix-200: #f7bbc3;
+  --telepix-300: #f28d9a;
+  --telepix-400: #ec5f72;
+  --telepix-500: #e7344c;
+  --telepix-600: #cd1831;
+  --telepix-700: #a01326;
+  --telepix-800: #720d1b;
+  --telepix-900: #37060d;
+
+  --accent: var(--telepix-500);
+  --accent-light: var(--telepix-100);
+  --accent-hover: var(--telepix-600);
+  --muted: #78716c;
+  --surface: #ffffff;
+  --border: #e7e5e4;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-hover: var(--accent-hover);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-telepix-100: var(--telepix-100);
+  --color-telepix-200: var(--telepix-200);
+  --color-telepix-300: var(--telepix-300);
+  --color-telepix-400: var(--telepix-400);
+  --color-telepix-500: var(--telepix-500);
+  --color-telepix-600: var(--telepix-600);
+  --color-telepix-700: var(--telepix-700);
+  --color-telepix-800: var(--telepix-800);
+  --color-telepix-900: var(--telepix-900);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0c0a09;
+    --foreground: #fafaf9;
+    --accent: var(--telepix-400);
+    --accent-light: var(--telepix-900);
+    --accent-hover: var(--telepix-300);
+    --muted: #a8a29e;
+    --surface: #1c1917;
+    --border: #292524;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Geometric pattern background with Telepix colors */
+.geo-pattern {
+  background-image: linear-gradient(
+      30deg,
+      var(--border) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--border) 87.5%,
+      var(--border)
+    ),
+    linear-gradient(
+      150deg,
+      var(--border) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--border) 87.5%,
+      var(--border)
+    ),
+    linear-gradient(
+      30deg,
+      var(--border) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--border) 87.5%,
+      var(--border)
+    ),
+    linear-gradient(
+      150deg,
+      var(--border) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--border) 87.5%,
+      var(--border)
+    ),
+    linear-gradient(
+      60deg,
+      var(--accent-light) 25%,
+      transparent 25.5%,
+      transparent 75%,
+      var(--accent-light) 75%,
+      var(--accent-light)
+    ),
+    linear-gradient(
+      60deg,
+      var(--accent-light) 25%,
+      transparent 25.5%,
+      transparent 75%,
+      var(--accent-light) 75%,
+      var(--accent-light)
+    );
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+  opacity: 0.3;
+}
+
+/* Staggered animations */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(231, 52, 76, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(231, 52, 76, 0.5);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-fade-slide-up {
+  animation: fadeSlideUp 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.stagger-1 {
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+.stagger-2 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+.stagger-3 {
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+.stagger-4 {
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+.stagger-5 {
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+.stagger-6 {
+  animation-delay: 0.6s;
+  opacity: 0;
+}
